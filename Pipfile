@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+ydata-profiling = "*"
+gcloud = "*"
+aiomultiprocess = "*"
+pandas = "*"
+fsspec = "*"
+google-cloud-storage = "*"
+gcsfs = "*"
+
+[dev-packages]
+isort = "*"
+black = "*"
+pylint = "*"
+pytest = "*"
+
+[requires]
+python_version = "3"
