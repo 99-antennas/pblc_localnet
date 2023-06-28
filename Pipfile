@@ -12,6 +12,8 @@ fsspec = "*"
 google-cloud-storage = "*"
 gcsfs = "*"
 spacy = "*"
+jupyterlab = "*"
+openai = "*"
 
 [dev-packages]
 isort = "*"
