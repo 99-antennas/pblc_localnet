@@ -14,6 +14,7 @@ gcsfs = "*"
 spacy = "*"
 jupyterlab = "*"
 openai = "*"
+pytube = "*"
 
 [dev-packages]
 isort = "*"
