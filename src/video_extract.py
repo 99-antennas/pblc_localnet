@@ -66,7 +66,9 @@ class VidExtract:
             )
 
             logging.info(f"Downloaded video: {output_file_path}")
-            gcs_file_path = self.upload_to_gcs(output_file_path, gcs_path=gcs_path)
+            # gcs_file_path = self.upload_to_gcs(output_file_path,
+            # gcs_path=gcs_path)
+            gcs_file_path = None
 
         return output_file_path, gcs_file_path
 
@@ -91,41 +93,42 @@ class VidExtract:
             gcs_file_path = self.upload_to_gcs(output_audio_path, gcs_path=gcs_path)
             return gcs_file_path
 
-    def transcribe_audio(self, audio_path):
-        """
-        Transcribe audio using Google Cloud Speech-to-Text API.
+    # ## DRAFT CODE
+    # def transcribe_audio(self, audio_path):
+    #     """
+    #     Transcribe audio using Google Cloud Speech-to-Text API.
 
-        Args:
-            audio_path (str): The local path to the audio file.
+    #     Args:
+    #         audio_path (str): The local path to the audio file.
 
-        Returns:
-            list: A list of transcribed text chunks.
-        """
-        chunk_size = 48000  # 1 second of audio (16-bit, 16000 Hz mono)
-        transcribed_text = []
+    #     Returns:
+    #         list: A list of transcribed text chunks.
+    #     """
+    #     chunk_size = 48000  # 1 second of audio (16-bit, 16000 Hz mono)
+    #     transcribed_text = []
 
-        client = speech_v1p1beta1.SpeechClient()
+    #     client = speech_v1p1beta1.SpeechClient()
 
-        with open(audio_path, "rb") as audio_file:
-            while True:
-                chunk = audio_file.read(chunk_size)
-                if not chunk:
-                    break
+    #     with open(audio_path, "rb") as audio_file:
+    #         while True:
+    #             chunk = audio_file.read(chunk_size)
+    #             if not chunk:
+    #                 break
 
-                audio = speech_v1p1beta1.RecognitionAudio(content=chunk)
+    #             audio = speech_v1p1beta1.RecognitionAudio(content=chunk)
 
-                config = speech_v1p1beta1.RecognitionConfig(
-                    encoding=speech_v1p1beta1.RecognitionConfig.AudioEncoding.LINEAR16,
-                    sample_rate_hertz=16000,
-                    language_code="en-US",
-                )
+    #             config = speech_v1p1beta1.RecognitionConfig(
+    #                 encoding=speech_v1p1beta1.RecognitionConfig.AudioEncoding.LINEAR16,
+    #                 sample_rate_hertz=16000,
+    #                 language_code="en-US",
+    #             )
 
-                response = client.recognize(config=config, audio=audio)
-                for result in response.results:
-                    transcribed_text.append(result.alternatives[0].transcript)
+    #             response = client.recognize(config=config, audio=audio)
+    #             for result in response.results:
+    #                 transcribed_text.append(result.alternatives[0].transcript)
 
-        logging.info("Audio transcription completed.")
-        return transcribed_text
+    #     logging.info("Audio transcription completed.")
+    #     return transcribed_text
 
     def upload_text_to_gcs(self, text, gcs_path):
         """
@@ -171,18 +174,18 @@ class VidExtract:
 
 # Example usage
 if __name__ == "__main__":
-    VID_ID = "JSTYbP5HvZQ"
+    VID_ID = "mIpavHp2twQ"
     VID_PREFIX = "https://www.youtube.com/watch?v="
     VIDEO_URL = f"{VID_PREFIX}{VID_ID}"
-    TEMP_DIR = "/tmp/localnets"
+    TEMP_DIR = "/Users/kas/dev/unf_tmp/test_videos"
 
     downloader = VidExtract(
         video_url=VIDEO_URL, gcs_bucket_name=GCS_BUCKET, temp_dir=TEMP_DIR
     )
 
     video_path, video_gcs_path = downloader.download_video()  # Download the video
-    audio_gcs_path = downloader.extract_audio(
-        video_path
-    )  # Extract audio from the video
-    logging.info(f"Uploaded video to GCS: {video_gcs_path}")
-    logging.info(f"Uploaded audio to GCS: {audio_gcs_path}")
+    # audio_gcs_path = downloader.extract_audio(
+    #     video_path
+    # )  # Extract audio from the video
+    # logging.info(f"Uploaded video to GCS: {video_gcs_path}")
+    # logging.info(f"Uploaded audio to GCS: {audio_gcs_path}")
