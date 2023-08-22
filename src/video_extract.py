@@ -183,9 +183,9 @@ if __name__ == "__main__":
         video_url=VIDEO_URL, gcs_bucket_name=GCS_BUCKET, temp_dir=TEMP_DIR
     )
 
-    video_path, video_gcs_path = downloader.download_video()  # Download the video
-    # audio_gcs_path = downloader.extract_audio(
-    #     video_path
-    # )  # Extract audio from the video
-    # logging.info(f"Uploaded video to GCS: {video_gcs_path}")
-    # logging.info(f"Uploaded audio to GCS: {audio_gcs_path}")
+    video_path, video_gcs_path = downloader.download_video()
+    # Download the video
+    audio_gcs_path = downloader.extract_audio(video_path)
+    # Extract audio from the video
+    logging.info(f"Uploaded video to GCS: {video_gcs_path}")
+    logging.info(f"Uploaded audio to GCS: {audio_gcs_path}")
