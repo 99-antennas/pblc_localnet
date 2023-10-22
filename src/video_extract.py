@@ -93,43 +93,6 @@ class VidExtract:
             gcs_file_path = self.upload_to_gcs(output_audio_path, gcs_path=gcs_path)
             return gcs_file_path
 
-    # ## DRAFT CODE
-    # def transcribe_audio(self, audio_path):
-    #     """
-    #     Transcribe audio using Google Cloud Speech-to-Text API.
-
-    #     Args:
-    #         audio_path (str): The local path to the audio file.
-
-    #     Returns:
-    #         list: A list of transcribed text chunks.
-    #     """
-    #     chunk_size = 48000  # 1 second of audio (16-bit, 16000 Hz mono)
-    #     transcribed_text = []
-
-    #     client = speech_v1p1beta1.SpeechClient()
-
-    #     with open(audio_path, "rb") as audio_file:
-    #         while True:
-    #             chunk = audio_file.read(chunk_size)
-    #             if not chunk:
-    #                 break
-
-    #             audio = speech_v1p1beta1.RecognitionAudio(content=chunk)
-
-    #             config = speech_v1p1beta1.RecognitionConfig(
-    #                 encoding=speech_v1p1beta1.RecognitionConfig.AudioEncoding.LINEAR16,
-    #                 sample_rate_hertz=16000,
-    #                 language_code="en-US",
-    #             )
-
-    #             response = client.recognize(config=config, audio=audio)
-    #             for result in response.results:
-    #                 transcribed_text.append(result.alternatives[0].transcript)
-
-    #     logging.info("Audio transcription completed.")
-    #     return transcribed_text
-
     def upload_text_to_gcs(self, text, gcs_path):
         """
         Upload transcribed text to Google Cloud Storage.
